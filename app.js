@@ -37,19 +37,23 @@ app.io.use(function* userLeft(next) {
  * router for socket event
  */
 
-app.io.route('join channel', function* (next, channel) {
-    console.log('user %s join in channel %s', channel.user, channel.channel);
+app.io.route('join', function* (next, channel) {
     this.channel = channel;
     channels[channel.channel] = channel;
     this.joinedUser = true;
-});
-
-app.io.route('card revealed', function* (next, card) {
-    console.log('user %s revealed card %s', this.channel.user, card);
-    this.broadcast.emit('card revealed', {
-        card: card,
+    this.broadcast.emit('user joined', {
+        id: this.socket.id, 
         user: this.channel.user
     });
+});
+
+app.io.route('card reveal', function* (next, card) {
+    let cardRevealed = {
+        userId: this.socket.id,
+        points: card
+    };
+
+    this.broadcast.emit('card revealed', cardRevealed);
 });
 
 // error handler
