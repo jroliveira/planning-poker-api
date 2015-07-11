@@ -20,16 +20,16 @@ app.use(logger());
 app.use(compress());
 
 // usernames which are currently connected to the chat
-var channels = {};
+var users = {};
 
 // IO
 app.io.use(function* userLeft(next) {
     // on connect
     yield* next;
     // on disconnect
-    if (this.joinedUser) {
-        console.log('%s disconnected', this.channel.user);
-        delete channels[this.channel];
+    if (this.userJoined) {
+        console.log('%s disconnected', this.user.name);
+        delete users[this.socket.id];
     }
 });
 
@@ -37,14 +37,19 @@ app.io.use(function* userLeft(next) {
  * router for socket event
  */
 
-app.io.route('join', function* (next, channel) {
-    this.channel = channel;
-    channels[channel.channel] = channel;
-    this.joinedUser = true;
-    this.broadcast.emit('user joined', {
-        id: this.socket.id, 
-        user: this.channel.user
-    });
+app.io.route('join', function* (next, user) {
+    this.emit('joined', users);
+
+    this.userJoined = true;
+    
+    this.user = {
+        id: this.socket.id,
+        name: user.name
+    };
+
+    this.broadcast.emit('user joined', this.user);
+    
+    users[this.user.id] = this.user.name;
 });
 
 app.io.route('card reveal', function* (next, card) {
