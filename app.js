@@ -12,24 +12,16 @@ const
 require('koa-qs')(app);
 
 app.use(cors());
-
-// Logger
 app.use(logger());
-
-// Compress
 app.use(compress());
 
-// usernames which are currently connected to the chat
-var users = {};
+var rooms = {};
 
-// IO
 app.io.use(function* userLeft(next) {
-    // on connect
     yield* next;
-    // on disconnect
-    if (this.userJoined) {
-        console.log('%s disconnected', this.user.name);
-        delete users[this.socket.id];
+    
+    if (this.user) {
+        delete rooms[this.user.room].users[this.user.id];
     }
 });
 
@@ -38,27 +30,31 @@ app.io.use(function* userLeft(next) {
  */
 
 app.io.route('join', function* (next, user) {
-    this.emit('joined', users);
-
-    this.userJoined = true;
-    
     this.user = {
         id: this.socket.id,
-        name: user.name
+        name: user.name,
+        room: user.room
     };
 
-    this.broadcast.emit('user joined', this.user);
-    
-    users[this.user.id] = this.user.name;
+    this.join(this.user.room);
+
+    if (!rooms[this.user.room]) {
+        rooms[this.user.room] = { users: [] };
+    }
+
+    this.emit('joined', rooms[this.user.room].users);
+    this.broadcast.to(this.user.room).emit('user joined', this.user);
+
+    rooms[this.user.room].users.push(this.user);
 });
 
 app.io.route('card reveal', function* (next, card) {
     let cardRevealed = {
-        userId: this.socket.id,
+        userId: this.user.id,
         points: card
     };
 
-    this.broadcast.emit('card revealed', cardRevealed);
+    this.broadcast.to(this.user.room).emit('card revealed', cardRevealed);
 });
 
 // error handler
