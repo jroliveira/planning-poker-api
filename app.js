@@ -2,9 +2,6 @@
 
 const
     compress = require('koa-compress'),
-    logger = require('koa-logger'),
-    serve = require('koa-static'),
-    _ = require('koa-route'),
     cors = require('kcors'),
     koa = require('koa.io'),
     app = module.exports = koa();
@@ -12,7 +9,6 @@ const
 require('koa-qs')(app);
 
 app.use(cors());
-app.use(logger());
 app.use(compress());
 
 var rooms = {};
@@ -21,7 +17,16 @@ app.io.use(function* userLeft(next) {
     yield* next;
     
     if (this.user) {
-        delete rooms[this.user.room].users[this.user.id];
+        this.leave(this.user.room);
+
+        let index = rooms[this.user.room].users.indexOf(this.user);
+        if (index > -1) {
+            rooms[this.user.room].users.splice(index, 1);
+        }
+
+        this.broadcast.to(this.user.room).emit('user left', this.user);
+
+        this.user = null;
     }
 });
 
@@ -29,7 +34,7 @@ app.io.use(function* userLeft(next) {
  * router for socket event
  */
 
-app.io.route('join', function* (next, user) {
+app.io.route('join', function* userJoin(next, user) {
     this.user = {
         id: this.socket.id,
         name: user.name,
@@ -55,14 +60,6 @@ app.io.route('card reveal', function* (next, card) {
     };
 
     this.broadcast.to(this.user.room).emit('card revealed', cardRevealed);
-});
-
-// error handler
-app.on('error', function (err) {
-    if (process.env.NODE_ENV != 'test') {
-        console.log('sent error %s to the cloud', err.message);
-        console.log(err);
-    }
 });
 
 if (!module.parent) {
