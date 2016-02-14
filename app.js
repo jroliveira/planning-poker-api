@@ -29,7 +29,7 @@ let join = require('./io-routes/join');
 let cardReveal = require('./io-routes/card-reveal');
 
 app.io.route('join', join);
-app.io.route('card reveal', cardReveal);
+app.io.route('card:reveal', cardReveal);
 
 if (!module.parent) {
   let port = process.env.PORT || 8081;

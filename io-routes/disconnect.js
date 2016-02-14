@@ -9,7 +9,7 @@ module.exports = function disconnect(_this) {
       global.rooms[_this.user.room].users.splice(index, 1);
     }
 
-    _this.broadcast.to(_this.user.room).emit('user left', _this.user);
+    _this.broadcast.to(_this.user.room).emit('user:left', _this.user);
 
     _this.user = null;
   }

@@ -6,5 +6,5 @@ module.exports = function* cardReveal(next, card) {
     points: card
   };
 
-  this.broadcast.to(this.user.room).emit('card revealed', cardRevealed);
+  this.broadcast.to(this.user.room).emit('card:revealed', cardRevealed);
 };

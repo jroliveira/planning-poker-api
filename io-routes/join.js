@@ -14,7 +14,7 @@ module.exports = function* join(next, user) {
     name: user.name,
     room: user.room
   };
-  
+
   if (!global.rooms[this.user.room]) {
     global.rooms[this.user.room] = {
       users: []
@@ -23,8 +23,12 @@ module.exports = function* join(next, user) {
 
   this.join(this.user.room);
 
-  this.emit('joined', global.rooms[this.user.room].users);
-  this.broadcast.to(this.user.room).emit('user joined', this.user);
+  this.emit('joined', {
+    room: this.user.room,
+    users: global.rooms[this.user.room].users
+  });
+  
+  this.broadcast.to(this.user.room).emit('user:joined', this.user);
 
   global.rooms[this.user.room].users.push(this.user);
 };
