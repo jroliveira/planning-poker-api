@@ -1,5 +1,6 @@
 'use strict';
 
+const bodyParser = require('koa-bodyparser');
 const cors = require('kcors');
 const compress = require('koa-compress');
 const json = require('koa-json');
@@ -9,15 +10,16 @@ const http = require('http');
 const socketio = require('socket.io');
 
 const app = new Koa();
+app.use(bodyParser());
 app.use(cors());
 app.use(compress());
 app.use(json());
 
-const home = require('./routes/home');
+const HomeRoute = require('./routes/home');
+const ErrorsRoute = require('./routes/errors');
 
-app.use(route.get('/', function*() {
-  yield home(this);
-}));
+app.use(route.get('/', HomeRoute.index));
+app.use(route.post('/errors', ErrorsRoute.create));
 
 const server = http.createServer(app.callback());
 const io = socketio(server);
