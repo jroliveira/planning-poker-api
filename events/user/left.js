@@ -1,6 +1,6 @@
 'use strict';
 
-function userLeft(socket) {
+function left(socket) {
   if (!socket.user) {
     return;
   }
@@ -20,4 +20,4 @@ function userLeft(socket) {
   socket.user = null;
 }
 
-module.exports = userLeft;
+export default left;

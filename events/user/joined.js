@@ -1,6 +1,6 @@
 'use strict';
 
-function userJoined(user, socket) {
+function joined(user, socket) {
   if (socket.user) {
     socket.leave(socket.user.room);
 
@@ -37,4 +37,4 @@ function userJoined(user, socket) {
   global.rooms[socket.user.room].users.push(socket.user);
 }
 
-module.exports = userJoined;
+export default joined;

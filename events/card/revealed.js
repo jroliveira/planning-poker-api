@@ -1,6 +1,6 @@
 'use strict';
 
-function cardRevealed(card, socket) {
+function revealed(card, socket) {
   let cardRevealed = {
     userId: socket.user.id,
     points: card
@@ -12,4 +12,4 @@ function cardRevealed(card, socket) {
     .emit('card:revealed', cardRevealed);
 }
 
-module.exports = cardRevealed;
+export default revealed;
