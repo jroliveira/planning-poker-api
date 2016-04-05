@@ -1,40 +1,38 @@
 'use strict';
 
-function joined(user, socket) {
-  if (socket.user) {
-    socket.leave(socket.user.room);
+import Room from './../../lib/models/room';
 
-    let index = global.rooms[socket.user.room].users.indexOf(socket.user);
-    if (index > -1) {
-      global.rooms[socket.user.room].users.splice(index, 1);
-    }
+function joined(newUser, socket) {
+  if (!global.rooms[newUser.room]) {
+    global.rooms[newUser.room] = new Room(newUser.room);
   }
 
-  socket.user = {
-    id: socket.id,
-    name: user.name,
-    room: user.room
-  };
+  let user = global.rooms[newUser.room].getUser(socket.id);
 
-  if (!global.rooms[socket.user.room]) {
-    global.rooms[socket.user.room] = {
-      users: []
-    };
+  if (user) {
+    socket.leave(user.room);
+    global.rooms[user.room].removeUser(user.id);
   }
 
-  socket.join(socket.user.room);
+  socket.room = newUser.room;
+  socket.join(newUser.room);
+  global.rooms[newUser.room].addUser(socket.id, newUser.name);
 
   socket.emit('joined', {
-    room: socket.user.room,
-    users: global.rooms[socket.user.room].users
+    user: {
+      id: socket.id,
+      name: newUser.name
+    },
+    room: newUser.room,
+    users: global.rooms[newUser.room].users
   });
 
   socket
     .broadcast
-    .to(socket.user.room)
-    .emit('user:joined', socket.user);
-
-  global.rooms[socket.user.room].users.push(socket.user);
+    .to(newUser.room)
+    .emit('user:joined', {
+      users: global.rooms[newUser.room].users
+    });
 }
 
 export default joined;

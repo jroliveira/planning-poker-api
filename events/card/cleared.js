@@ -1,20 +1,21 @@
 'use strict';
 
-function revealed(card, socket) {
-  socket.emit('revealed', {
+function cleared(socket) {
+  global.rooms[socket.room].clearCard(socket.id);
+
+  socket.emit('cleared', {
     user: {
       id: socket.id
     },
-    card: card,
     users: global.rooms[socket.room].users
   });
 
   socket
     .broadcast
     .to(socket.room)
-    .emit('card:revealed', {
+    .emit('card:cleared', {
       users: global.rooms[socket.room].users
     });
 }
 
-export default revealed;
+export default cleared;

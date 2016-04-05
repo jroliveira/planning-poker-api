@@ -1,7 +1,9 @@
 'use strict';
 
-function revealed(card, socket) {
-  socket.emit('revealed', {
+function chosen(card, socket) {
+  global.rooms[socket.room].chooseCard(socket.id, card);
+
+  socket.emit('chosen', {
     user: {
       id: socket.id
     },
@@ -12,9 +14,9 @@ function revealed(card, socket) {
   socket
     .broadcast
     .to(socket.room)
-    .emit('card:revealed', {
+    .emit('card:chosen', {
       users: global.rooms[socket.room].users
     });
 }
 
-export default revealed;
+export default chosen;

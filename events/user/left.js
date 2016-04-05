@@ -1,23 +1,26 @@
 'use strict';
 
 function left(socket) {
-  if (!socket.user) {
+  if (!socket.room) {
     return;
   }
 
-  socket.leave(socket.user.room);
+  let user = global.rooms[socket.room].getUser(socket.id);
 
-  let index = global.rooms[socket.user.room].users.indexOf(socket.user);
-  if (index > -1) {
-    global.rooms[socket.user.room].users.splice(index, 1);
+  if (!user) {
+    return;
   }
+
+  socket.room = null;
+  socket.leave(user.room);
+  global.rooms[user.room].removeUser(user.id);
 
   socket
     .broadcast
-    .to(socket.user.room)
-    .emit('user:left', socket.user);
-
-  socket.user = null;
+    .to(user.room)
+    .emit('user:left', {
+      users: global.rooms[user.room].users
+    });
 }
 
 export default left;
