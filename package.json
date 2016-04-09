@@ -19,14 +19,18 @@
   "engines": {
     "node": ">=5.9.1"
   },
+  "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "nf start",
+    "lint": "jshint index.js",
+    "jscs": "jscs index.js"
   },
   "dependencies": {
     "babel-core": "^6.7.4",
     "babel-polyfill": "^6.7.4",
     "babel-preset-es2015-node5": "^1.2.0",
     "babel-preset-stage-3": "^6.5.0",
+    "foreman": "^1.4.1",
     "kcors": "^2.0.0",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.0.0",
@@ -35,5 +39,8 @@
     "koa-router": "^7.0.0",
     "request": "^2.69.0",
     "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "jscs": "^2.11.0"
   }
 }

@@ -21,17 +21,17 @@ function joined(newUser, socket) {
   socket.emit('joined', {
     user: {
       id: socket.id,
-      name: newUser.name
+      name: newUser.name,
     },
     room: newUser.room,
-    users: global.rooms[newUser.room].users
+    users: global.rooms[newUser.room].users,
   });
 
   socket
     .broadcast
     .to(newUser.room)
     .emit('user:joined', {
-      users: global.rooms[newUser.room].users
+      users: global.rooms[newUser.room].users,
     });
 }
 

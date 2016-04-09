@@ -19,7 +19,7 @@ function left(socket) {
     .broadcast
     .to(user.room)
     .emit('user:left', {
-      users: global.rooms[user.room].users
+      users: global.rooms[user.room].users,
     });
 }
 

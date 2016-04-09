@@ -6,7 +6,7 @@ async function index(ctx, next) {
   ctx.body = {
     name: pkg.name,
     version: pkg.version,
-    message: 'I\'m working...'
+    message: 'I\'m working...',
   };
 }
 

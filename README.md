@@ -6,13 +6,27 @@ Api da app mobile híbrida de scrum poker.
 
 ### Installing
 
-* `git clone https://github.com/jroliveira/scrum-poker-api.git`
+* `git clone https://github.com/scrum-poker/scrum-poker-api.git`
 * `npm install`
+
+#### Configuration file (.env)
+
+```json
+{
+  "marinet": {
+    "url": "",
+    "app": {
+      "id": "",
+      "key": ""
+    }
+  }
+}
+```
 
 ### How to use it
 
 * `npm start`
-* `localhost:8081`
+* `localhost:5000`
 
 ### Contributions
 
@@ -22,4 +36,4 @@ Api da app mobile híbrida de scrum poker.
 4. git push origin <branch-name>
 5. Create a pull request
 
-[logo]: https://raw.githubusercontent.com/jroliveira/scrum-poker-api/master/logo.png "Scrum Poker (api) - Logo"
+[logo]: https://raw.githubusercontent.com/scrum-poker/scrum-poker-api/master/logo.png "Scrum Poker (api) - Logo"
