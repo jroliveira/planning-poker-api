@@ -1,12 +1,12 @@
-# Scrum Poker (api)
+# Planning Poker (api)
 
-![Scrum Poker (api) - Logo][logo]
+![Planning Poker (api) - Logo][logo]
 
-Api da app mobile híbrida de scrum poker.
+Api da app mobile híbrida de planning poker.
 
 ### Installing
 
-* `git clone https://github.com/scrum-poker/scrum-poker-api.git`
+* `git clone https://github.com/planning-poker/planning-poker-api.git`
 * `npm install`
 
 #### Configuration file (.env)
@@ -36,4 +36,4 @@ Api da app mobile híbrida de scrum poker.
 4. git push origin <branch-name>
 5. Create a pull request
 
-[logo]: https://raw.githubusercontent.com/scrum-poker/scrum-poker-api/master/logo.png "Scrum Poker (api) - Logo"
+[logo]: https://raw.githubusercontent.com/planning-poker/planning-poker-api/master/logo.png "Planning Poker (api) - Logo"

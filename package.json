@@ -1,11 +1,11 @@
 {
-  "name": "scrum-poker-api",
+  "name": "planning-poker-api",
   "version": "1.0.0",
-  "description": "Api da app mobile híbrida de scrum poker",
-  "homepage": "https://github.com/jroliveira/scrum-poker-api#readme",
+  "description": "Api da app mobile híbrida de planning poker",
+  "homepage": "https://github.com/planning-poker/planning-poker-api#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jroliveira/scrum-poker-api.git"
+    "url": "https://github.com/planning-poker/planning-poker-api.git"
   },
   "author": {
     "name": "Junior Oliveira",
@@ -13,7 +13,7 @@
     "url": "http://jroliveira.net"
   },
   "bugs": {
-    "url": "https://github.com/jroliveira/scrum-poker-api/issues"
+    "url": "https://github.com/planning-poker/planning-poker-api/issues"
   },
   "readmeFilename": "README.md",
   "engines": {
