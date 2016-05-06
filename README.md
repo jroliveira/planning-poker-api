@@ -23,6 +23,10 @@ Api da app mobile híbrida de planning poker.
 }
 ```
 
+### Running tests
+
+* `npm test`
+
 ### How to use it
 
 * `npm start`

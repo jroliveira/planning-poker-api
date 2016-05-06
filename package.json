@@ -22,6 +22,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nf start",
+    "test": "mocha --recursive --compilers coffee:coffee-script/register",
     "lint": "jshint index.js",
     "jscs": "jscs index.js"
   },
@@ -41,6 +42,10 @@
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
-    "jscs": "^2.11.0"
+    "chai": "^3.5.0",
+    "coffee-script": "^1.7.0",
+    "jscs": "^2.11.0",
+    "jshint": "^2.9.2",
+    "mocha": "^2.4.5"
   }
 }
