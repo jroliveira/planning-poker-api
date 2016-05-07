@@ -1,6 +1,6 @@
 'use strict';
 
-import Card from './card';
+import Card from './../card/card';
 
 class User {
   constructor(id, name, room) {

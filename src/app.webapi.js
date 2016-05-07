@@ -4,8 +4,8 @@ import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import cors from 'kcors';
 import json from 'koa-json';
+import logger from 'koa-logger';
 import Koa from 'koa';
-import router from './routes/router';
 
 const app = new Koa();
 app
@@ -13,7 +13,6 @@ app
   .use(cors())
   .use(compress())
   .use(json())
-  .use(router.routes())
-  .use(router.allowedMethods());
+  .use(logger());
 
 export default app;

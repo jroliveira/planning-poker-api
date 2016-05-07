@@ -1,6 +1,6 @@
 'use strict';
 
-import Room from './../../lib/models/room';
+import Room from './../room/room';
 
 function joined(newUser, socket) {
   if (!global.rooms[newUser.room]) {

@@ -1,6 +1,6 @@
 'use strict';
 
-import MarinetProvider from './../../lib/marinet-restful-provider';
+import MarinetProvider from './marinet-restful-provider';
 
 const provider = new MarinetProvider({
   rootUrl: process.env.MARINET_URL,
