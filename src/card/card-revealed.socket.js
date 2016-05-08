@@ -5,20 +5,24 @@ function revealed(card, socket) {
     return;
   }
 
+  let room = global.rooms[socket.room];
+
   socket.emit('revealed', {
     user: {
       id: socket.id,
     },
     card: card,
-    users: global.rooms[socket.room].users,
+    users: room.users,
   });
 
   socket
     .broadcast
     .to(socket.room)
     .emit('card:revealed', {
-      users: global.rooms[socket.room].users,
+      users: room.users,
     });
+
+  console.log(`card:revealed -> ${socket.id}`);
 }
 
 export default revealed;

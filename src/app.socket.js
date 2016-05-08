@@ -14,16 +14,12 @@ class Socket {
     return socket;
   }
 
-  constructor(server) {
+  static async createWith(server) {
     if (socket) {
       throw Error('Socket is instantiated');
     }
 
     socket = socketio(server);
-  }
-
-  static async createWith(server) {
-    socket = new Socket(server);
   }
 }
 

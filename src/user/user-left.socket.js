@@ -5,22 +5,15 @@ function left(socket) {
     return;
   }
 
-  let user = global.rooms[socket.room].getUser(socket.id);
-
-  if (!user) {
+  let room = global.rooms[socket.room];
+  if (!room) {
     return;
   }
 
-  socket.room = null;
-  socket.leave(user.room);
-  global.rooms[user.room].removeUser(user.id);
+  room.removeUser(socket);
+  global.rooms[socket.room] = room;
 
-  socket
-    .broadcast
-    .to(user.room)
-    .emit('user:left', {
-      users: global.rooms[user.room].users,
-    });
+  console.log(`user:left -> ${socket.id}`);
 }
 
 export default left;

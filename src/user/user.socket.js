@@ -1,7 +1,7 @@
 'use strict';
 
 import Socket from './../app.socket';
-import joined from './user-left.socket';
+import joined from './user-joined.socket';
 import left from './user-left.socket';
 
 config();

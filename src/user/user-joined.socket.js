@@ -3,36 +3,27 @@
 import Room from './../room/room';
 
 function joined(newUser, socket) {
-  if (!global.rooms[newUser.room]) {
-    global.rooms[newUser.room] = new Room(newUser.room);
+  if (socket.room) {
+    let currentRoom = global.rooms[socket.room];
+    if (currentRoom) {
+      currentRoom.removeUser(socket);
+    }
   }
 
-  let user = global.rooms[newUser.room].getUser(socket.id);
-
-  if (user) {
-    socket.leave(user.room);
-    global.rooms[user.room].removeUser(user.id);
-  }
-
-  socket.room = newUser.room;
-  socket.join(newUser.room);
-  global.rooms[newUser.room].addUser(socket.id, newUser.name);
+  let room = global.rooms[newUser.room] || new Room(newUser.room);
+  let user = room.addUser(newUser.name, socket);
+  global.rooms[user.room] = room;
 
   socket.emit('joined', {
     user: {
-      id: socket.id,
-      name: newUser.name,
+      id: user.id,
+      name: user.name,
     },
-    room: newUser.room,
-    users: global.rooms[newUser.room].users,
+    room: user.room,
+    users: room.users,
   });
 
-  socket
-    .broadcast
-    .to(newUser.room)
-    .emit('user:joined', {
-      users: global.rooms[newUser.room].users,
-    });
+  console.log('user:join -> %j', user);
 }
 
 export default joined;

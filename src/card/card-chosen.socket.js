@@ -5,22 +5,19 @@ function chosen(card, socket) {
     return;
   }
 
-  global.rooms[socket.room].chooseCard(socket.id, card);
+  let room = global.rooms[socket.room];
+  room.chooseCard(card, socket);
+  global.rooms[socket.room] = room;
 
   socket.emit('chosen', {
     user: {
       id: socket.id,
     },
     card: card,
-    users: global.rooms[socket.room].users,
+    users: room.users,
   });
 
-  socket
-    .broadcast
-    .to(socket.room)
-    .emit('card:chosen', {
-      users: global.rooms[socket.room].users,
-    });
+  console.log(`card:chosen -> ${socket.id}`);
 }
 
 export default chosen;

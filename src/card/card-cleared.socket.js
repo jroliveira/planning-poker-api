@@ -5,21 +5,18 @@ function cleared(socket) {
     return;
   }
 
-  global.rooms[socket.room].clearCard(socket.id);
+  let room = global.rooms[socket.room];
+  room.clearCard(socket);
+  global.rooms[socket.room] = room;
 
   socket.emit('cleared', {
     user: {
       id: socket.id,
     },
-    users: global.rooms[socket.room].users,
+    users: room.users,
   });
 
-  socket
-    .broadcast
-    .to(socket.room)
-    .emit('card:cleared', {
-      users: global.rooms[socket.room].users,
-    });
+  console.log(`card:cleared -> ${socket.id}`);
 }
 
 export default cleared;
