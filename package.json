@@ -1,6 +1,6 @@
 {
   "name": "planning-poker-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Api da app mobile híbrida de planning poker",
   "homepage": "https://github.com/planning-poker/planning-poker-api#readme",
   "repository": {
@@ -8,9 +8,8 @@
     "url": "https://github.com/planning-poker/planning-poker-api.git"
   },
   "author": {
-    "name": "Junior Oliveira",
-    "email": "junolive@gmail.com",
-    "url": "http://jroliveira.net"
+    "name": "Planing Poker",
+    "url": "http://planning-poker.io"
   },
   "bugs": {
     "url": "https://github.com/planning-poker/planning-poker-api/issues"
