@@ -1,13 +1,14 @@
 # Planning Poker (api)
 
 [![Code Climate](https://codeclimate.com/github/planning-poker/planning-poker-api/badges/gpa.svg)](https://codeclimate.com/github/planning-poker/planning-poker-api)
+[![Build Status](https://travis-ci.org/planning-poker/planning-poker-api.svg?branch=master)](https://travis-ci.org/planning-poker/planning-poker-api)
 
 ![Planning Poker (api) - Logo][logo]
 
 Api da app mobile híbrida de planning poker.
 
 ### Installing
-<!--  -->
+
 * `git clone https://github.com/planning-poker/planning-poker-api.git`
 * `npm install`
 
