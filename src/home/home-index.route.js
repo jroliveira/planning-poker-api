@@ -2,7 +2,7 @@
 
 import pkg from './../../package.json';
 
-async function index(ctx, next) {
+async function index(ctx) {
   ctx.body = {
     name: pkg.name,
     version: pkg.version,

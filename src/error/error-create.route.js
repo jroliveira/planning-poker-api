@@ -10,7 +10,7 @@ const provider = new MarinetProvider({
   },
 });
 
-async function create(ctx, next) {
+async function create(ctx) {
   let error = ctx.request.body;
   provider.error(error);
 
