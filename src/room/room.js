@@ -31,9 +31,9 @@ class Room {
     this.notify('user:left', socket);
   }
 
-  chooseCard(points, socket) {
+  chooseCard(card, socket) {
     let user = this.users[socket.id];
-    user.choose(points);
+    user.choose(card);
     this.users[socket.id] = user;
 
     this.notify('card:chosen', socket);

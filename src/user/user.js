@@ -1,7 +1,5 @@
 'use strict';
 
-import Card from './../card/card';
-
 class User {
   constructor(id, name, room) {
     this.id = id;
@@ -14,8 +12,8 @@ class User {
     this.card = null;
   }
 
-  choose(points) {
-    this.card = new Card(points);
+  choose(card) {
+    this.card = card;
   }
 }
 

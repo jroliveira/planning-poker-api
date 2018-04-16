@@ -37,10 +37,10 @@ describe 'Room', ->
       expect(user).to.be.undefined
 
   describe 'when choose card', ->
-    it 'should set points in user', ->
+    it 'should set card in user', ->
       room.chooseCard 8, fakeSocket
       user = room.users['/#AAA999']
-      user.card.points.should.equal 8
+      user.card.should.equal 8
 
   describe 'when clear card', ->
     it 'should set card to null', ->
