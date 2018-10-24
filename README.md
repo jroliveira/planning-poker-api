@@ -43,6 +43,17 @@ $ npm test
 $ npm start
 ```
 
+### Docker
+
+* Create a docker image:
+  ``` bash
+  $ sudo docker build -t planning-poker-api .
+  ```
+* Create a container based on the image:
+  <pre>
+  $ sudo docker run -d -p 5000:5000 -v <i>&lt;path-to-dot-env&gt;</i>:/app/.env planning-poker-api
+  </pre>
+
 ### Contributions
 
 1. Fork it
